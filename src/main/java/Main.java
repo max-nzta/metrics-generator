@@ -1,6 +1,3 @@
-
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import io.prometheus.client.*;
 import io.prometheus.client.exporter.HTTPServer;
@@ -24,14 +21,14 @@ public class Main {
         Histogram requestHistogram = Histogram.build().namespace("java").name("request").help("Number of requests to the website").labelNames("statusCode").register();
         DefaultExports.initialize();
         try {
-            new HTTPServer("0.0.0.0", 8080, true);
+            new HTTPServer("0.0.0.0", 8890, true);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 80), 1000);
+            HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8891), 1000);
 
 
             server.createContext("/metrics", httpExchange -> {
